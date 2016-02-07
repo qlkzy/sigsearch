@@ -8,9 +8,15 @@ import java.util.regex.Pattern;
 public class SymbolRegexRule implements Rule {
 
     private final Pattern pattern;
+    private final String rendering;
 
-    public SymbolRegexRule(String regex) {
+    public SymbolRegexRule(String rendering, String regex) {
+        this.rendering = rendering;
         this.pattern = Pattern.compile(regex);
+    }
+
+    public String rendering(Token token) {
+        return rendering;
     }
 
     public boolean matches(Token token) {

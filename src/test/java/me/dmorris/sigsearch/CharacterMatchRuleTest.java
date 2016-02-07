@@ -10,19 +10,27 @@ import static org.junit.Assert.*;
 public class CharacterMatchRuleTest {
     @Test
     public void shouldNotMatchSymbol() {
-        Rule rule = new CharacterMatchRule(';');
+        Rule rule = new CharacterMatchRule(";");
         assertFalse(rule.matches(new Token(TokenType.SYMBOL, ";")));
     }
 
     @Test
     public void shouldMatchSameChar() {
-        Rule rule = new CharacterMatchRule(';');
+        Rule rule = new CharacterMatchRule(";");
         assertTrue(rule.matches(new Token(TokenType.CHARACTER, ";")));
     }
 
     @Test
     public void shouldNotMatchDifferentChar() {
-        Rule rule = new CharacterMatchRule('{');
+        Rule rule = new CharacterMatchRule("{");
         assertFalse(rule.matches(new Token(TokenType.CHARACTER, ";")));
+    }
+
+    @Test
+    public void shouldMatchAnyContained() {
+        Rule rule = new CharacterMatchRule("{};");
+        assertTrue(rule.matches(new Token(TokenType.CHARACTER, ";")));
+        assertTrue(rule.matches(new Token(TokenType.CHARACTER, "{")));
+        assertTrue(rule.matches(new Token(TokenType.CHARACTER, "}")));
     }
 }

@@ -7,10 +7,16 @@ import java.util.regex.Pattern;
  */
 public class StringRegexRule implements Rule {
 
+    private final String rendering;
     private final Pattern pattern;
 
-    public StringRegexRule(String regex) {
-        pattern = Pattern.compile(regex);
+    public StringRegexRule(String rendering, String regex) {
+        this.rendering = rendering;
+        this.pattern = Pattern.compile(regex);
+    }
+
+    public String rendering(Token token) {
+        return rendering;
     }
 
     public boolean matches(Token token) {

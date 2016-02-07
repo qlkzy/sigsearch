@@ -5,10 +5,16 @@ package me.dmorris.sigsearch;
  */
 public class SymbolEqualityRule implements Rule {
 
+    private final String rendering;
     private final String symbol;
 
-    public SymbolEqualityRule(String symbol) {
+    public SymbolEqualityRule(String rendering, String symbol) {
+        this.rendering = rendering;
         this.symbol = symbol;
+    }
+
+    public String rendering(Token token) {
+        return rendering;
     }
 
     public boolean matches(Token token) {

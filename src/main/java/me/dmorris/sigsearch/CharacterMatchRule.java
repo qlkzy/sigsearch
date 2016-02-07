@@ -5,14 +5,18 @@ package me.dmorris.sigsearch;
  */
 public class CharacterMatchRule implements Rule {
 
-    private final char c;
+    private final String chars;
 
-    public CharacterMatchRule(char c) {
-        this.c = c;
+    public CharacterMatchRule(String chars) {
+        this.chars = chars;
+    }
+
+    public String rendering(Token token) {
+        return token.value;
     }
 
     public boolean matches(Token token) {
         return token.type == TokenType.CHARACTER &&
-               token.value.equals(String.valueOf(c));
+               chars.contains(token.value);
     }
 }
