@@ -6,6 +6,8 @@ import org.junit.Test;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static me.dmorris.sigsearch.Token.charToken;
+import static me.dmorris.sigsearch.Token.symbolToken;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -36,7 +38,7 @@ public class TokenizerTest {
     public void shouldExtractSymbol() {
         addStringChars("if ");
         tokenizer.lexAll();
-        assertThat(tokens, contains(new Token(TokenType.SYMBOL, "if")));
+        assertThat(tokens, contains(symbolToken("if"), charToken(" ")));
     }
 
     @Test
@@ -51,6 +53,28 @@ public class TokenizerTest {
         addStringChars("\"foo \\\"bar\\\"\"");
         tokenizer.lexAll();
         assertThat(tokens, contains(new Token(TokenType.STRING, "foo \"bar\"")));
+    }
+
+    @Test
+    public void shouldDropSingleLineComments() {
+        addStringChars("foo // asdfasdf asf\n bar ");
+        tokenizer.lexAll();
+        assertThat(tokens, contains(symbolToken("foo"),
+                                    charToken(" "),
+                                    charToken(" "),
+                                    symbolToken("bar"),
+                                    charToken(" ")));
+    }
+
+    @Test
+    public void shouldDropMultilineComments() {
+        addStringChars("foo /* bar \n baz */ quux ");
+        tokenizer.lexAll();
+        assertThat(tokens, contains(symbolToken("foo"),
+                                    charToken(" "),
+                                    charToken(" "),
+                                    symbolToken("quux"),
+                                    charToken(" ")));
     }
 
     private void addStringChars(String chars) {
