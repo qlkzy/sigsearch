@@ -37,4 +37,20 @@ public class Token {
                ", value='" + value + '\'' +
                '}';
     }
+
+    public static Token charToken(String c) {
+        return new Token(TokenType.CHARACTER, c);
+    }
+
+    public static Token charToken(char c) {
+        return new Token(TokenType.CHARACTER, String.valueOf(c));
+    }
+
+    public static Token symbolToken(String s) {
+        return new Token(TokenType.SYMBOL, s);
+    }
+
+    public static Token stringToken(String s) {
+        return new Token(TokenType.STRING, s);
+    }
 }
