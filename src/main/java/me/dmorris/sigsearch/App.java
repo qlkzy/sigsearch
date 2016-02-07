@@ -1,4 +1,4 @@
-package me.dmorris;
+package me.dmorris.sigsearch;
 
 /**
  * Hello world!
