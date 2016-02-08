@@ -2,7 +2,10 @@ package me.dmorris.sigsearch;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+
+import static java.util.Arrays.asList;
 
 /**
  * Hello world!
@@ -40,7 +43,15 @@ public class App
             }
         }
 
-        for (final String filename : filenames) {
+        while (!filenames.isEmpty()) {
+            String filename = filenames.remove(0);
+            File file = new File(filename);
+            if (file.isDirectory()) {
+                Arrays.stream(file.listFiles((dir, name) -> name.endsWith(".java")))
+                        .map(f -> f.getPath())
+                        .forEach(f -> filenames.add(f));
+                continue;
+            }
             System.out.print(filename + ": ");
             FileReader reader = new FileReader(filename);
             int c;
