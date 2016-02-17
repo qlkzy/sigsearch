@@ -56,9 +56,14 @@ public class App
             }
         }
 
-        // current directory by default
+        // default directory
         if (filenames.isEmpty()) {
             filenames.add(".");
+        }
+
+        // default rendering
+        if (tokenRenderer.ruleCount() == 0) {
+            tokenRenderer.addRule(RuleFactory.ruleFor("c/{};/"));
         }
 
         while (!filenames.isEmpty()) {

@@ -44,4 +44,8 @@ public class TokenRenderer {
             render();
         }
     }
+
+    public int ruleCount() {
+        return rules.size();
+    }
 }
