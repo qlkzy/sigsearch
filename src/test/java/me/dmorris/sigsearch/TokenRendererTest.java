@@ -27,6 +27,13 @@ public class TokenRendererTest {
     }
 
     @Test
+    public void shouldEmptyInput() {
+        addCharTokens("foo bar baz");
+        renderer.renderAll();
+        assertEquals(0, input.size());
+    }
+
+    @Test
     public void renderBasicSignatures() {
         renderer.addRule(new CharacterMatchRule("{};"));
         addCharTokens("foo(); bar() { baz; quux; }");
