@@ -21,6 +21,7 @@ public class App
 
         Tokenizer tokenizer = new Tokenizer(chars, tokens);
         TokenRenderer tokenRenderer = new TokenRenderer(tokens, output);
+        TokenPrinter tokenPrinter = new TokenPrinter(output, System.out);
 
         ArrayList<String> filenames = new ArrayList<>();
 
@@ -85,10 +86,7 @@ public class App
             }
             tokenizer.lexAll();
             tokenRenderer.renderAll();
-            for (final String s : output) {
-                System.out.print(s);
-            }
-            output.clear();
+            tokenPrinter.printAll();
             reader.close();
             System.out.println("");
         }
